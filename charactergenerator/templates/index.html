@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Kingmaker Character Generator</title>
+	</head>
+<body>
+	<h1>CharGen</h1>
+
+	<hr />
+	{% for character in characters %}
+	<p>Name:{{character.name}}</p>
+	<p>Strength:{{character.strength}}</p>
+	<p>Dexterity:{{character.dexterity}}</p>
+	{% endfor %}
+	<hr />
+	<footer>footer</footer>
+</body>
+</html>
