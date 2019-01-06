@@ -9,8 +9,13 @@
 	<hr />
 	{% for character in characters %}
 	<p>Name:{{character.name}}</p>
-	<p>Strength:{{character.strength}}</p>
+	<p>UNSPENT POINTS: {{character.ability_points}}</p>
+	<p><button>Add</button>Strength:{{character.strength}}<button>Remove</button></p>
 	<p>Dexterity:{{character.dexterity}}</p>
+	<p>Constitution:{{character.constitution}}</p>
+	<p>Intelligence:{{character.intelligence}}</p>
+	<p>Wisdom:{{character.wisdom}}</p>
+	<p>Charisma:{{character.charisma}}</p>
 	{% endfor %}
 	<hr />
 	<footer>footer</footer>
