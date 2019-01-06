@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<script src="/static/app.js"></script>
+<html>
+	<head>
+		<title>Kingmaker Character Generator</title>
+	</head>
+<body>
+	<h1>CharGen</h1>
+	<hr />
+	<form method="POST" id="character_form">
+		{% csrf_token %}
+		<div>
+			<p>Strength: {{basevalue}}</p>
+			<input type="hidden" value={{basevalue}} name="currentvalue">
+			<input type="submit" value="Increase" name="add">
+		</div>
+	</form>
+	<hr />
+	<footer>footer</footer>
+</body>
+</html>
