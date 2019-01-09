@@ -2,7 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Character(models.Model):
-	name = models.CharField(max_length=30)
+	name = models.CharField(max_length=30, default='')
+	race = models.CharField(max_length=30, default='')
+	characterclass = models.CharField(max_length=30, default='')
 	ability_points = models.IntegerField(default=25)
 	strength = models.IntegerField(default=10)
 	dexterity = models.IntegerField(default=10)
