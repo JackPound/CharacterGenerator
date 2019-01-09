@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Kingmaker Character Generator</title>
-	</head>
-<body>
-	<h1>CharGen</h1>
+{% extends 'base.html' %}
+{% block content %}
 
-	<hr />
 	{% for character in characters %}
 	<p>ID: {{character.id}}</p>
 	<p>Build Name: {{character.name}}</p>
 	<p>Race: {{character.race}}</p>
 	<p>Class: {{character.characterclass}}</p>
-	<p>UNSPENT POINTS: {{character.ability_points}}</p>
 	<p>Strength: {{character.strength}}</p>
 	<p>Dexterity: {{character.dexterity}}</p>
 	<p>Constitution: {{character.constitution}}</p>
@@ -21,6 +14,5 @@
 	<p>Charisma: {{character.charisma}}</p>
 	{% endfor %}
 	<hr />
-	<footer>footer</footer>
-</body>
-</html>
+
+{% endblock %}

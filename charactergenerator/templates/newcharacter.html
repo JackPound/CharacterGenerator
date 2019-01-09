@@ -1,20 +1,40 @@
-<!DOCTYPE html>
-<script src="/static/app.js"></script>
-<html>
-	<head>
-		<title>Kingmaker Character Generator</title>
-	</head>
-<body>
-	<h1>CharGen</h1>
-	<hr />
+{% extends 'base.html' %}
+{% block content%}
 	<form method="POST" id="character_form">
 		{% csrf_token %}
 		Build Name:<input type='text' name='name'><br>
-		Race:<input type='text' name='race'><br>
-		Character Class:<input type='text' name='characterclass'><br>
+		Race:
+		<select name='race' size='8'>
+			<option value="aasimar">Aasimar</option>
+			<option value="3">Dwarf</option>
+			<option value="elf">Elf</option>
+			<option value="gnome">Gnome</option>
+			<option value="halfling">Halfling</option>
+			<option value="halfelf">Half-Elf</option>
+			<option value="halforc">Half-Orc</option>
+			<option value="human">Human</option>
+		</select>
+		Character Class:
+		<select name='characterclass' size='17'>
+			<option value="alchemist">Alchemist</option>
+			<option value="barbarian">Barbarian</option>
+			<option value="bard">Bard</option>
+			<option value="cleric">Cleric</option>
+			<option value="druid">Druid</option>
+			<option value="fighter">Fighter</option>
+			<option value="inquisitor">Inquisitor</option>
+			<option value="kineticist">Kineticist</option>
+			<option value="magus">Magus</option>
+			<option value="paladin">Paladin</option>
+			<option value="ranger">Ranger</option>
+			<option value="rogue">Rogue</option>
+			<option value="wizard">Wizard</option>
+			<option value="arcanetrickster">Arcane Trickster</option>
+			<option value="dragondisciple">Dragon Disciple</option>
+			<option value="mystictheurge">Mystic Theurge</option>
+			<option value="stalwartdefender">Stalwart Defender</option>
+		</select>
 		<input type='submit'>
 	</form>
 	<hr />
-	<footer>footer</footer>
-</body>
-</html>
+{% endblock %}

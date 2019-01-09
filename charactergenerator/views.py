@@ -11,9 +11,9 @@ def index(request):
 def newcharacter(request):
 	if request.method == 'POST':
 		n = request.POST['name']
-		r = request.POST['race']
+		r = int(request.POST['race'])
 		c = request.POST['characterclass']
-		new_character = Character.objects.create(name= n, race = r, characterclass = c)
+		new_character = Character.objects.create(name= n, race_id = r, characterclass = c)
 		return HttpResponseRedirect('/characters')
 	else:
 		form = NewCharacterForm

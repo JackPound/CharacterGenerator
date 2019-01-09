@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+	{% for character in characters %}
+	<p>ID: {{character.id}}</p>
+	<p>Build Name: {{character.name}}</p>
+	<p>Race: {{character.race}}</p>
+	<p>Class: {{character.characterclass}}</p>
+	<p>UNSPENT POINTS: {{character.ability_points}}</p>
+	<p>Strength: {{character.strength|add:character.race.strength_bonus}}</p>
+	<p>Dexterity: {{character.dexterity|add:character.race.dexterity_bonus}}</p>
+	<p>Constitution: {{character.constitution|add:character.race.constitution_bonus}}</p>
+	<p>Intelligence: {{character.intelligence|add:character.race.intelligence_bonus}}</p>
+	<p>Wisdom: {{character.wisdom|add:character.race.wisdom_bonus}}</p>
+	<p>Charisma: {{character.charisma|add:character.race.charisma_bonus}}</p>
+	{% endfor %}
+	<hr />
+
+{% endblock %}
