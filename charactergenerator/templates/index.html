@@ -2,16 +2,18 @@
 {% block content %}
 
 	{% for character in characters %}
-	<p>ID: {{character.id}}</p>
-	<p>Build Name: {{character.name}}</p>
-	<p>Race: {{character.race}}</p>
-	<p>Class: {{character.characterclass}}</p>
-	<p>Strength: {{character.strength}}</p>
-	<p>Dexterity: {{character.dexterity}}</p>
-	<p>Constitution: {{character.constitution}}</p>
-	<p>Intelligence: {{character.intelligence}}</p>
-	<p>Wisdom: {{character.wisdom}}</p>
-	<p>Charisma: {{character.charisma}}</p>
+	<div>
+		<p>ID: <a href='newcharacter/{{character.id}}'>{{character.id}}</a></p>
+		<p>Build Name: {{character.name}}</p>
+		<p>Race: {{character.race}}</p>
+		<p>Class: {{character.characterclass}}</p>
+		<p>Strength: {{character.strength}}</p>
+		<p>Dexterity: {{character.dexterity}}</p>
+		<p>Constitution: {{character.constitution}}</p>
+		<p>Intelligence: {{character.intelligence}}</p>
+		<p>Wisdom: {{character.wisdom}}</p>
+		<p>Charisma: {{character.charisma}}</p>
+	</div>
 	{% endfor %}
 	<hr />
 
