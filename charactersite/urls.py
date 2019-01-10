@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('characters/', include('charactergenerator.urls')),
+    path('kingmaker-builder/', include('charactergenerator.urls')),
 ]

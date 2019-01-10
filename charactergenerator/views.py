@@ -12,14 +12,21 @@ def newcharacter(request):
 	if request.method == 'POST':
 		n = request.POST['name']
 		r = int(request.POST['race'])
-		c = request.POST['characterclass']
-		new_character = Character.objects.create(name= n, race_id = r, characterclass = c)
-		return HttpResponseRedirect('/characters')
+		c = int(request.POST['characterclass'])
+		new_character = Character.objects.create(name= n, race_id = r, characterclass_id = c)
+		# char_id = Character.objects.values('id').get(name=n)
+		# print(new_character.id,'newcharacter.id')
+		url = str(new_character.id)
+		return HttpResponseRedirect(url)
 	else:
 		form = NewCharacterForm
 		return render(request, 'newcharacter.html', {'form': form})
 
-def add_abilities(request):
+def set_abilities(request, char_id):
+	character = Character.objects.get(id = char_id)
+	return render(request, 'set_abilities.html', {'character': character})
+
+def helpabilities(request):
 	abilities = ['strength','dexterity','constitution','intelligence','wisdom','charisma']
 	if 'add' in request.POST:
 		print(request)

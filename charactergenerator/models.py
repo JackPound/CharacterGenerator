@@ -13,10 +13,15 @@ class Race(models.Model):
 	def __str__(self):
 		return self.name
 
+class Characterclass(models.Model):
+	name = models.CharField(max_length=30, default='')
+
+	def __str__(self):
+		return self.name
 class Character(models.Model):
 	name = models.CharField(max_length=30, default='')
 	race = models.ForeignKey(Race, on_delete=models.CASCADE)
-	characterclass = models.CharField(max_length=30, default='')
+	characterclass = models.ForeignKey(Characterclass, on_delete=models.CASCADE)
 	ability_points = models.IntegerField(default=25)
 	strength = models.IntegerField(default=10)
 	dexterity = models.IntegerField(default=10)
@@ -26,5 +31,6 @@ class Character(models.Model):
 	charisma = models.IntegerField(default=10)
 	def __str__(self):
 		return self.name
+
 	
 	

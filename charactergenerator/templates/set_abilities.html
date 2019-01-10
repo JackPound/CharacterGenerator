@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+	<p>ID: {{character.id}}</p>
+	<p>Build Name: {{character.name}}</p>
+	<p>Race: {{character.race}}</p>
+	<p>Class: {{character.characterclass}}</p><br />
+	<p>UNSPENT POINTS: <span id='abilityPoints'>{{character.ability_points}}</span></p>
+	<div class='strength'>
+		<button class='down'>-</button>
+		<p>Strength: <span id='strength'>{{character.strength|add:character.race.strength_bonus}}</span></p>
+		<button class='up'>+</button>
+	</div>
+	<div class='dexterity'>
+		<button class='down'>-</button>
+		<p>Dexterity: <span id='dexterity'>{{character.dexterity|add:character.race.dexterity_bonus}}</span></p>
+		<button class='up'>+</button>
+	</div>
+	<div class='constitution'>
+		<button class='down'>-</button>
+		<p>Constitution: <span id='constitution'>{{character.constitution|add:character.race.constitution_bonus}}</span></p><button class='up'>+</button>
+	</div>
+	<div class='intelligence'>
+		<button class='down'>-</button>
+		<p>Intelligence: <span id='intelligence'>{{character.intelligence|add:character.race.intelligence_bonus}}</span></p><button class='up'>+</button>
+	</div>
+	<div class='wisdom'>
+		<button class='down'>-</button>
+		<p>Wisdom: <span id='wisdom'>{{character.wisdom|add:character.race.wisdom_bonus}}</span></p>
+		<button class='up'>+</button>
+	</div>
+	<div class='charisma'>
+		<button class='down'>-</button>
+		<p>Charisma: <span id='charisma'>{{character.charisma|add:character.race.charisma_bonus}}</span></p>
+		<button class='up'>+</button>
+	</div>
+	<hr />
+</div>
+
+{% endblock %}
