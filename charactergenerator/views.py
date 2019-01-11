@@ -21,7 +21,8 @@ def newcharacter(request):
 	else:
 		form = NewCharacterForm
 		return render(request, 'newcharacter.html', {'form': form})
-
+def characters(request):
+	return render(request, 'hello.html')
 def set_abilities(request, char_id):
 	character = Character.objects.get(id = char_id)
 	return render(request, 'set_abilities.html', {'character': character})

@@ -7,57 +7,87 @@ const startingConstitution = parseInt($('#constitution')[0].textContent)
 const startingIntelligence = parseInt($('#intelligence')[0].textContent)
 const startingWisdom = parseInt($('#wisdom')[0].textContent)
 const startingCharisma = parseInt($('#charisma')[0].textContent)
+// Declare skill with corresponding attribute score
+let skillSet = {
+	'athletics':strength,
+	'mobility':dexterity,
+	'stealth':dexterity,
+	'trickery':dexterity,
+	'knowledgeArcana':intelligence,
+	'knowledgeWorld':intelligence,
+	'loreNature':wisdom,
+	'loreReligion':wisdom,
+	'perception':wisdom,
+	'persuasion':charisma,
+	'useMagicDevice':charisma,
+}
+// Set bonus to skills based on current attribute score
+function updateSkills(){
+	for (skill in skillSet) {
+		$('#'+skill)[0].textContent = Math.floor((parseInt(skillSet[skill].textContent - 10) / 2))
+	}
+}
+// Check available Ability points
+function availableAP(){
+	return parseInt($('#abilityPoints')[0].textContent)
+}
+// Increase (currentAV) by 1
+function incrementAbility(currentAV, attribute){
+	$('#' + attribute)[0].textContent = currentAV + 1
+}
+// Decrease (currentAV) by 1
+function decrementAbility(currentAV, attribute){
+	$('#' + attribute)[0].textContent = currentAV - 1
+}
+// Reduces ability points by (value)
+function reduceAbilityPool(value){
+	$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) - value))
+}
+function increaseAbilityPool(value){
+	$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) + value))
+}
+// Function for finding the starting value of the attribute being increased or decreased
+function findStartingValue(attribute){
+	let startingAttributeValue = ''
+	if (attribute == 'strength'){
+		startingAttributeValue = startingStrength
+	} else if (attribute == 'dexterity') {
+		startingAttributeValue = startingDexterity
+	} else if (attribute == 'constitution') {
+		startingAttributeValue = startingConstitution
+	} else if (attribute == 'intelligence') {
+		startingAttributeValue = startingIntelligence
+	} else if (attribute == 'wisdom') {
+		startingAttributeValue = startingWisdom
+	} else if (attribute == 'charisma') {
+		startingAttributeValue = startingCharisma
+	}
+	return startingAttributeValue
+}
+updateSkills()
 // Button event handler for all button clicks (+ and - attributes)
 $(':button').on("click", function(){
-	var attribute = String($(this).parent()[0].className)
-	let currentAttribute = parseInt($('#'+attribute)[0].textContent);
-	let startingAttribute = ''
-	// Determining which attribute we're changing
-	if (attribute == 'strength'){
-		startingAttribute = startingStrength
-	} else if (attribute == 'dexterity') {
-		startingAttribute = startingDexterity
-	} else if (attribute == 'constitution') {
-		startingAttribute = startingConstitution
-	} else if (attribute == 'intelligence') {
-		startingAttribute = startingIntelligence
-	} else if (attribute == 'wisdom') {
-		startingAttribute = startingWisdom
-	} else if (attribute == 'charisma') {
-		startingAttribute = startingCharisma
-	}
-	// Increasing attributes
+	let attribute = String($(this).parent()[0].className)
+	let currentAV = parseInt($('#'+attribute)[0].textContent);
+	let startingAV = findStartingValue(attribute)
 	if (this.className == 'up'){
-		// Determinging how many Unspent points are needed to increase the ability
-		if (startingAttribute + 1 >= currentAttribute && parseInt($('#abilityPoints')[0].textContent) >= 1) {
-			$('#' + attribute)[0].textContent = currentAttribute + 1
-			$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) - 1))
-		} else if (startingAttribute + 3 >= currentAttribute && parseInt($('#abilityPoints')[0].textContent) >= 2) {
-			$('#' + attribute)[0].textContent = currentAttribute + 1
-			$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) - 2))
-		} else if (startingAttribute + 5 >= currentAttribute && parseInt($('#abilityPoints')[0].textContent) >= 3) {
-			$('#' + attribute)[0].textContent = currentAttribute + 1
-			$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) - 3))
-		} else if (startingAttribute + 7 >= currentAttribute && parseInt($('#abilityPoints')[0].textContent) >= 4) {
-			$('#' + attribute)[0].textContent = currentAttribute + 1
-			$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) - 4))
+		let cost = (Math.floor((currentAV - startingAV)/2) + 1)
+		if (cost < 1){
+			cost = 1
+		}
+		if (cost <= 4 && availableAP() >= cost){
+			incrementAbility(currentAV, attribute)
+			reduceAbilityPool(cost)
+			updateSkills()
 		}
 	}
-	// Decreasing attributes (cannot fall below 3)
-	if (this.className == 'down' && currentAttribute > 3){
-		// Determining how many points are refunded based on how many have already been spent in this attribute
-		if (startingAttribute + 2 >= currentAttribute) {
-			$('#' + attribute)[0].textContent = currentAttribute - 1
-			$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) + 1))
-		} else if (startingAttribute + 4 >= currentAttribute) {
-			$('#' + attribute)[0].textContent = currentAttribute - 1
-			$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) + 2))
-		} else if (startingAttribute + 6 >= currentAttribute) {
-			$('#' + attribute)[0].textContent = currentAttribute - 1
-			$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) + 3))
-		} else if (startingAttribute + 8 >= currentAttribute) {
-			$('#' + attribute)[0].textContent = currentAttribute - 1
-			$('#abilityPoints')[0].textContent = String((parseInt($('#abilityPoints')[0].textContent) + 4))
+	if (this.className == 'down' && currentAV > 7){
+		let refund = Math.ceil((currentAV - startingAV)/2)
+		if (refund <= 0){
+			refund = 1
 		}
+		decrementAbility(currentAV, attribute)
+		increaseAbilityPool(refund)
+		updateSkills()
 	}
 });

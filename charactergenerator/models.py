@@ -29,6 +29,17 @@ class Character(models.Model):
 	intelligence = models.IntegerField(default=10)
 	wisdom = models.IntegerField(default=10)
 	charisma = models.IntegerField(default=10)
+	athletics = models.IntegerField(default=0)
+	mobility = models.IntegerField(default=0)
+	stealth = models.IntegerField(default=0)
+	trickery = models.IntegerField(default=0)
+	knowledge_arcana = models.IntegerField(default=0)
+	knowledge_world = models.IntegerField(default=0)
+	lore_nature = models.IntegerField(default=0)
+	lore_religion = models.IntegerField(default=0)
+	perception = models.IntegerField(default=0)
+	persuasion = models.IntegerField(default=0)
+	use_magic_device = models.IntegerField(default=0)
 	def __str__(self):
 		return self.name
 
