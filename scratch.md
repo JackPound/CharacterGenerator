@@ -1,3 +1,7 @@
+Skills: base and per lvl
+
+
+
 	{% for ability in abilities %}
 			<input type="submit" value="-" name="{{ability}}_subtract">
 			<p style="display:inline;">{{ability}}: {{ability_score}}</p>
