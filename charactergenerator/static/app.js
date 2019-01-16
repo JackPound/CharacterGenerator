@@ -67,6 +67,8 @@ function onLoadAbility(){
 	}
 	calculateModifiers()
 	updateSkills()
+	baseSkillPoints = parseInt($('#skillPointsPerLevel')[0].innerHTML)
+	availableSkillPoints()
 }
 function calculateModifiers(){
 	for (attribute in attributeSet){
@@ -75,7 +77,11 @@ function calculateModifiers(){
 		$('#' + attributeSet[attribute] + 'Modifier')[0].innerHTML = modifier
 	}
 }
+function availableSkillPoints(){
+	$('#skillPoints')[0].innerHTML = Math.ceil(baseSkillPoints + (.5 * parseInt($('#intelligenceModifier')[0].textContent)))
+}
 onLoadAbility()
+
 // On click for all ability modifying buttons + and - ability score
 $('.abilityScores :button').on("click", function(){
 	console.log(String($(this).parent().parent()[0].classList[0]))
@@ -88,6 +94,7 @@ $('.abilityScores :button').on("click", function(){
 			modifyAbilityPool(-cost)
 			updateSkills()
 			calculateModifiers()
+			availableSkillPoints()
 		}
 	}
 	if (this.classList[0] == 'down' && currentAV > 7){
@@ -96,5 +103,15 @@ $('.abilityScores :button').on("click", function(){
 		modifyAbilityPool(cost)
 		updateSkills()
 		calculateModifiers()
-	}
+		availableSkillPoints()
+	}	
 });
+
+$('.skillScores :button').on("click", function(){
+	if (this.className == 'upSkill' && ($('#skillPoints')[0].innerHTML > 0)){
+		this.previousElementSibling.innerHTML = parseInt(this.previousElementSibling.innerHTML) + 1
+	}
+	if (this.className == 'downSkill' && parseInt(this.nextElementSibling.innerHTML) > 0){
+		this.nextElementSibling.innerHTML = parseInt(this.nextElementSibling.innerHTML) - 1
+	}
+})

@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class='row'>
-	<p>Build Name: {{character.name}}</p>
-	<p>Ability Points: <span id='abilityPoints'>{{character.ability_points}}</span></p>
-</div>
-<div class='row'>
 	<div class='col-4'>
+		<p>Build Name: {{character.name}}</p>
 		<p>ID: {{character.id}}</p>
 		<p>Race: {{character.race}}</p>
 		<p>Class: {{character.characterclass}}</p>
 	</div>
 	<div class='abilityScores col-8'>
+		<div class='row'>
+			<p class='col-12 text-center'>Ability Points: <span id='abilityPoints'>{{character.ability_points}}</span></p>
+		</div>
 		<div class='abilityHeader row'>
 			<p class='col-3'>Attribute</p>
 			<p class='col-2'>Bonus</p>
@@ -23,7 +23,7 @@
 			<p style='display:none;'><span id='strength'>{{character.strength}}</span></p>
 			<p class='col-5'>
 				<button class='down ayo'>-</button>
-				<span id='strengthTotal'></span>
+				<span id='strengthTotal' class='scoreSpacer'></span>
 				<button class='up ayo'>+</button>
 			</p>
 			<p class='col-2'><span id='strengthModifier'></span></p>
@@ -34,7 +34,7 @@
 			<p style='display:none;'><span id='dexterity'>{{character.dexterity}}</span></p>
 			<p class='col-5'>
 				<button class='down ayo'>-</button>
-				<span id='dexterityTotal'></span>
+				<span id='dexterityTotal' class='scoreSpacer'></span>
 				<button class='up ayo'>+</button>
 			</p>
 			<p class='col-2'><span id='dexterityModifier'></span></p>
@@ -45,7 +45,7 @@
 			<p style='display:none;'><span id='constitution'>{{character.constitution}}</span></p>
 			<p class='col-5'>
 				<button class='down ayo'>-</button>
-				<span id='constitutionTotal'></span>
+				<span id='constitutionTotal' class='scoreSpacer'></span>
 				<button class='up ayo'>+</button>
 			</p>
 			<p class='col-2'><span id='constitutionModifier'></span></p>
@@ -56,7 +56,7 @@
 			<p style='display:none;'><span id='intelligence'>{{character.intelligence}}</span></p>
 			<p class='col-5'>
 				<button class='down ayo'>-</button>
-				<span id='intelligenceTotal'></span>
+				<span id='intelligenceTotal' class='scoreSpacer'></span>
 				<button class='up ayo'>+</button>
 			</p>
 			<p class='col-2'><span id='intelligenceModifier'></span></p>
@@ -67,7 +67,7 @@
 			<p style='display:none;'><span id='wisdom'>{{character.wisdom}}</span></p>
 			<p class='col-5'>
 				<button class='down ayo'>-</button>
-				<span id='wisdomTotal'></span>
+				<span id='wisdomTotal' class='scoreSpacer'></span>
 				<button class='up ayo'>+</button>
 			</p>
 			<p class='col-2'><span id='wisdomModifier'></span></p>
@@ -78,7 +78,7 @@
 			<p style='display:none;'><span id='charisma'>{{character.charisma}}</span></p>
 			<p class='col-5'>
 				<button class='down ayo'>-</button>
-				<span id='charismaTotal'></span>
+				<span id='charismaTotal' class='scoreSpacer'></span>
 				<button class='up ayo'>+</button>
 			</p>
 			<p class='col-2'><span id='charismaModifier'></span></p>
@@ -87,41 +87,93 @@
 </div>
 <hr />
 <div class='row'>
-	<div class='col-6'>
-		<div>
-			<p>Athletics: <span id='athletics'>{{character.athletics}}</span></p>
-		</div>
-		<div>
-			<p>Mobility: <span id='mobility'>{{character.mobility}}</span></p>
-		</div>
-		<div>
-			<p>Stealth: <span id='stealth'>{{character.stealth}}</span></p>
-		</div>
-		<div>
-			<p>Trickery: <span id='trickery'>{{character.trickery}}</span></p>
-		</div>
-		<div>
-			<p>Knowledge: Arcana: <span id='knowledgeArcana'>{{character.knowledge_arcana}}</span></p>
-		</div>
-		<div>
-			<p>Knowledge: World: <span id='knowledgeWorld'>{{character.knowledge_world}}</span></p>
-		</div>
+	<div class='col-4'>
 	</div>
-	<div class='col-6'>
-		<div>
-			<p>Lore: Nature: <span id='loreNature'>{{character.lore_nature}}</span></p>
+	<div class='col-8 skillScores'>
+		<div class='row'>
+			<div class='col-12 text-center skillHeader'>
+				<span style='display:none;' id='skillPointsPerLevel'>{{character.characterclass.skills_per_level}}</span>
+				<p>Skill Points: <span id='skillPoints'></span></p>
+			</div>
 		</div>
-		<div>
-			<p>Lore: Religion: <span id='loreReligion'>{{character.lore_religion}}</span></p>
+		<div class='row'>
+			<p class='col-4'>Athletics:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer'id='athletics'>{{character.athletics}}</span>
+				<button class='upSkill'>+</button>
+			</div>
+			
+			<p class='col-4'>Lore Nature:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='loreNature'>{{character.lore_nature}}</span>
+				<button class='upSkill'>+</button>
+			</div>
 		</div>
-		<div>
-			<p>Perception: <span id='perception'>{{character.perception}}</span></p>
+		<div class='row'>
+			<p class='col-4'>Lore Religion:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='loreReligion'>{{character.lore_religion}}</span>
+				<button class='upSkill'>+</button>
+			</div>
+			<p class='col-4'>Mobility:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='mobility'>{{character.mobility}}</span>
+				<button class='upSkill'>+</button>
+			</div>
 		</div>
-		<div>
-			<p>Persuasion: <span id='persuasion'>{{character.persuasion}}</span></p>
+		<div class='row'>
+			<p class='col-4'>Stealth:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='stealth'>{{character.stealth}}</span>
+				<button class='upSkill'>+</button>
+			</div>
+			<p class='col-4'>Perception:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='perception'>{{character.perception}}</span>
+				<button class='upSkill'>+</button>
+			</div>
 		</div>
-		<div>
-			<p>Use Magic Device: <span id='useMagicDevice'>{{character.use_magic_device}}</span></p>
+		<div class='row'>
+			<p class='col-4'>Trickery:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='trickery'>{{character.trickery}}</span>
+				<button class='upSkill'>+</button>
+			</div>
+			<p class='col-4'>Persuasion:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='persuasion'>{{character.persuasion}}</span>
+				<button class='upSkill'>+</button>
+			</div>
+		</div>
+		<div class='row'>
+			<p class='col-4'>Knowledge Arcana:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='knowledgeArcana'>{{character.knowledge_arcana}}</span>
+				<button class='upSkill'>+</button>
+			</div>
+			<p class='col-4'>Use Magic Device:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='useMagicDevice'>{{character.use_magic_device}}</span>
+				<button class='upSkill'>+</button>
+			</div>
+		</div>
+		<div class='row'>
+			<p class='col-4'>Knowledge World:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='knowledgeWorld'>{{character.knowledge_world}}</span>
+				<button class='upSkill'>+</button>
+			</div>
 		</div>
 	</div>
 </div>

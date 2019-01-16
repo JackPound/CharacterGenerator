@@ -1,7 +1,26 @@
 .abilityHeader p {
-	margin-bottom: 0;
-	border-bottom: 1px solid black;
+	font-size: 1.25em;
 }
 .abilityScores p {
 	text-align: center;
+}
+.abilityScores {
+	max-width: 650px;
+}
+.skillHeader {
+	max-width: 650px;
+}
+.skillScores {
+	max-width: 650px;
+}
+.abilityPointHeader {
+	max-width: 650px;
+}
+.scoreSpacer {
+	min-width: 20px;
+	display: inline-block;
+	text-align: center;
+}
+.downSkill {
+	border-radius: ;
 }

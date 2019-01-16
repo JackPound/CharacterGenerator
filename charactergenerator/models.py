@@ -15,7 +15,7 @@ class Race(models.Model):
 
 class Characterclass(models.Model):
 	name = models.CharField(max_length=30, default='')
-	# skills_per_level = models.IntegerField(default=0)
+	skills_per_level = models.IntegerField(default=0)
 	
 
 	def __str__(self):
