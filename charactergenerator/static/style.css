@@ -1,3 +1,7 @@
-p {
-	display: inline;
+.abilityHeader p {
+	margin-bottom: 0;
+	border-bottom: 1px solid black;
+}
+.abilityScores p {
+	text-align: center;
 }

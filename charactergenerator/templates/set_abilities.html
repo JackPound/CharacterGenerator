@@ -1,45 +1,93 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-	<div class='characterInfo'>
+<div class='row'>
+	<p>Build Name: {{character.name}}</p>
+	<p>Ability Points: <span id='abilityPoints'>{{character.ability_points}}</span></p>
+</div>
+<div class='row'>
+	<div class='col-4'>
 		<p>ID: {{character.id}}</p>
-		<p>Build Name: {{character.name}}</p>
 		<p>Race: {{character.race}}</p>
-		<p>Class: {{character.characterclass}}</p><br />
-		<p>Unspent Ability Points: <span id='abilityPoints'>{{character.ability_points}}</span></p>
-		<p>Unspent Skill Points: <span id='skillPoints'>VALUE</span></p>
+		<p>Class: {{character.characterclass}}</p>
 	</div>
-	<div class='abilityScores' style='display:inline-block;'>
-		<div class='strength'>
-			<button class='down'>-</button>
-			<p>Strength:</p> <span id='strength'>{{character.strength}}</span>
-			<button class='up'>+</button>
+	<div class='abilityScores col-8'>
+		<div class='abilityHeader row'>
+			<p class='col-3'>Attribute</p>
+			<p class='col-2'>Bonus</p>
+			<p class='col-5'>Total</p>
+			<p class='col-2'>Modifier</p>
 		</div>
-		<div class='dexterity'>
-			<button class='down'>-</button>
-			<p>Dexterity: <span id='dexterity'>{{character.dexterity}}</span></p>
-			<button class='up'>+</button>
+		<div class='strength row'>
+			<p class='col-3'>STR</p>
+			<p class='col-2' id='strengthBonus'>{{character.race.strength_bonus}}</p>
+			<p style='display:none;'><span id='strength'>{{character.strength}}</span></p>
+			<p class='col-5'>
+				<button class='down ayo'>-</button>
+				<span id='strengthTotal'></span>
+				<button class='up ayo'>+</button>
+			</p>
+			<p class='col-2'><span id='strengthModifier'></span></p>
 		</div>
-		<div class='constitution'>
-			<button class='down'>-</button>
-			<p>Constitution: <span id='constitution'>{{character.constitution}}</span></p><button class='up'>+</button>
+		<div class='dexterity row'>
+			<p class='col-3'>DEX</p>
+			<p class='col-2' id='dexterityBonus'>{{character.race.dexterity_bonus}}</p>
+			<p style='display:none;'><span id='dexterity'>{{character.dexterity}}</span></p>
+			<p class='col-5'>
+				<button class='down ayo'>-</button>
+				<span id='dexterityTotal'></span>
+				<button class='up ayo'>+</button>
+			</p>
+			<p class='col-2'><span id='dexterityModifier'></span></p>
 		</div>
-		<div class='intelligence'>
-			<button class='down'>-</button>
-			<p>Intelligence: <span id='intelligence'>{{character.intelligence}}</span></p><button class='up'>+</button>
+		<div class='constitution row'>
+			<p class='col-3'>CON</p>
+			<p class='col-2' id='constitutionBonus'>{{character.race.constitution_bonus}}</p>
+			<p style='display:none;'><span id='constitution'>{{character.constitution}}</span></p>
+			<p class='col-5'>
+				<button class='down ayo'>-</button>
+				<span id='constitutionTotal'></span>
+				<button class='up ayo'>+</button>
+			</p>
+			<p class='col-2'><span id='constitutionModifier'></span></p>
 		</div>
-		<div class='wisdom'>
-			<button class='down'>-</button>
-			<p>Wisdom: <span id='wisdom'>{{character.wisdom}}</span></p>
-			<button class='up'>+</button>
+		<div class='intelligence row'>
+			<p class='col-3'>INT</p>
+			<p class='col-2' id='intelligenceBonus'>{{character.race.intelligence_bonus}}</p>
+			<p style='display:none;'><span id='intelligence'>{{character.intelligence}}</span></p>
+			<p class='col-5'>
+				<button class='down ayo'>-</button>
+				<span id='intelligenceTotal'></span>
+				<button class='up ayo'>+</button>
+			</p>
+			<p class='col-2'><span id='intelligenceModifier'></span></p>
 		</div>
-		<div class='charisma'>
-			<button class='down'>-</button>
-			<p>Charisma: <span id='charisma'>{{character.charisma}}</span></p>
-			<button class='up'>+</button>
+		<div class='wisdom row'>
+			<p class='col-3'>WIS</p>
+			<p class='col-2' id='wisdomBonus'>{{character.race.wisdom_bonus}}</p>
+			<p style='display:none;'><span id='wisdom'>{{character.wisdom}}</span></p>
+			<p class='col-5'>
+				<button class='down ayo'>-</button>
+				<span id='wisdomTotal'></span>
+				<button class='up ayo'>+</button>
+			</p>
+			<p class='col-2'><span id='wisdomModifier'></span></p>
+		</div>
+		<div class='charisma row'>
+			<p class='col-3'>CHA</p>
+			<p class='col-2' id='charismaBonus'>{{character.race.charisma_bonus}}</p>
+			<p style='display:none;'><span id='charisma'>{{character.charisma}}</span></p>
+			<p class='col-5'>
+				<button class='down ayo'>-</button>
+				<span id='charismaTotal'></span>
+				<button class='up ayo'>+</button>
+			</p>
+			<p class='col-2'><span id='charismaModifier'></span></p>
 		</div>
 	</div>
-	<div class='skillScores' style='display:inline-block;'>
+</div>
+<hr />
+<div class='row'>
+	<div class='col-6'>
 		<div>
 			<p>Athletics: <span id='athletics'>{{character.athletics}}</span></p>
 		</div>
@@ -58,6 +106,8 @@
 		<div>
 			<p>Knowledge: World: <span id='knowledgeWorld'>{{character.knowledge_world}}</span></p>
 		</div>
+	</div>
+	<div class='col-6'>
 		<div>
 			<p>Lore: Nature: <span id='loreNature'>{{character.lore_nature}}</span></p>
 		</div>
@@ -74,7 +124,6 @@
 			<p>Use Magic Device: <span id='useMagicDevice'>{{character.use_magic_device}}</span></p>
 		</div>
 	</div>
-	<hr />
 </div>
 
 {% endblock %}

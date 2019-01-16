@@ -39,10 +39,11 @@ let abilityRefund = {
 	17:3,
 	18:4,
 }
+let attributeSet = ['strength','dexterity','constitution','intelligence','wisdom','charisma']
 // Set bonus to skills based on current attribute score
 function updateSkills(){
 	for (skill in skillSet) {
-		$('#'+skill)[0].textContent = Math.floor((parseInt($('#'+skillSet[skill])[0].textContent - 10) / 2))
+		$('#'+skill)[0].textContent = Math.floor((parseInt($('#'+skillSet[skill]+'Total')[0].textContent - 10) / 2))
 	}
 }
 // Check unspent ability points value
@@ -55,24 +56,45 @@ function modifyAbilityPool(value){
 }
 // Modify specific ability score
 function modifyAbilityScore(currentAV, attribute, change){
-	$('#' + attribute)[0].textContent = currentAV + change
+	newAV = currentAV + change
+	$('#' + attribute)[0].textContent = newAV
+	$('#' + attribute + 'Total')[0].innerHTML = newAV + parseInt($('#' + attribute + 'Bonus')[0].textContent)
 }
+// Calculate racial + base for all attributes on load
+function onLoadAbility(){
+	for (attribute in attributeSet) {
+		$('#' + attributeSet[attribute] + 'Total')[0].innerHTML = 10 + parseInt($('#' + attributeSet[attribute] + 'Bonus')[0].textContent)
+	}
+	calculateModifiers()
+	updateSkills()
+}
+function calculateModifiers(){
+	for (attribute in attributeSet){
+		let aboveTen = parseInt($('#' + attributeSet[attribute] + 'Total')[0].textContent) - 10
+		let modifier = Math.floor(aboveTen/2)
+		$('#' + attributeSet[attribute] + 'Modifier')[0].innerHTML = modifier
+	}
+}
+onLoadAbility()
 // On click for all ability modifying buttons + and - ability score
 $('.abilityScores :button').on("click", function(){
-	let attribute = String($(this).parent()[0].className)
+	console.log(String($(this).parent().parent()[0].classList[0]))
+	let attribute = String($(this).parent().parent()[0].classList[0])
 	let currentAV = parseInt($('#'+attribute)[0].textContent)
-	if (this.className == 'up' && currentAV < 18){
+	if (this.classList[0] == 'up' && currentAV < 18){
 		let cost = upgradeCost[currentAV]
 		if (cost <= availableAP()) {
 			modifyAbilityScore(currentAV, attribute, 1)
 			modifyAbilityPool(-cost)
 			updateSkills()
+			calculateModifiers()
 		}
 	}
-	if (this.className == 'down' && currentAV > 7){
+	if (this.classList[0] == 'down' && currentAV > 7){
 		let cost = abilityRefund[currentAV]
 		modifyAbilityScore(currentAV, attribute, -1)
 		modifyAbilityPool(cost)
 		updateSkills()
+		calculateModifiers()
 	}
 });
