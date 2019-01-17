@@ -85,7 +85,15 @@ function onLoadAbility(){
 		baseSkillPoints += 1
 	}
 	availableSkillPoints()
+	validButtons()
 }
+function validButtons2(){
+	for (a in attributeSet){
+		console.log(parseInt($('#'+attributeSet[a])[0].innerHTML))
+	}
+}
+validButtons2()
+
 function calculateModifiers(){
 	for (attribute in attributeSet){
 		let aboveTen = parseInt($('#' + attributeSet[attribute] + 'Total')[0].textContent) - 10
@@ -96,7 +104,25 @@ function calculateModifiers(){
 function availableSkillPoints(){
 	$('#skillPoints')[0].innerHTML = Math.ceil(baseSkillPoints + (.5 * parseInt($('#intelligenceModifier')[0].textContent)))
 }
+
+function validButtons(){
+	for (skill in skillSpent){
+		if (skillSpent[skill] < 1) {
+			$('#'+skill)[0].previousElementSibling.disabled = true
+		} else {
+			$('#'+skill)[0].previousElementSibling.disabled = false
+		}
+	}
+}
+function validateAbilityDown(currentAV){
+	if (currentAV == 8) {
+		this.disabled = true
+	} else {
+		this.disabled = false
+	}
+}
 onLoadAbility()
+
 
 // On click for all ability modifying buttons + and - ability score
 $('.abilityScores :button').on("click", function(){
@@ -110,6 +136,10 @@ $('.abilityScores :button').on("click", function(){
 			updateSkills()
 			calculateModifiers()
 			availableSkillPoints()
+			this.previousElementSibling.previousElementSibling.disabled = false
+			if (currentAV == 17) {
+				this.disabled = true
+			}
 		}
 	}
 	if (this.classList[0] == 'down' && currentAV > 7){
@@ -119,18 +149,23 @@ $('.abilityScores :button').on("click", function(){
 		updateSkills()
 		calculateModifiers()
 		availableSkillPoints()
-	}	
+		this.nextElementSibling.nextElementSibling.disabled = false
+		if (currentAV == 8) {
+			this.disabled = true
+		}
+	}
 });
-
 $('.skillScores :button').on("click", function(){
 	if (this.className == 'upSkill' && ($('#skillPoints')[0].innerHTML > 0)){
 		let clickedSkill = this.previousElementSibling.id
 		skillSpent[clickedSkill] += 1
 		this.previousElementSibling.innerHTML = parseInt(this.previousElementSibling.innerHTML) + 1
+		validButtons()
 	}
 	if (this.className == 'downSkill' && skillSpent[this.nextElementSibling.id] > 0){
 		let clickedSkill = this.nextElementSibling.id
 		skillSpent[clickedSkill] -= 1
 		this.nextElementSibling.innerHTML = parseInt(this.nextElementSibling.innerHTML) - 1
+		validButtons()
 	}
 })
