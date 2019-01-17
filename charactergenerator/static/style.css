@@ -6,12 +6,14 @@
 }
 .abilityScores {
 	max-width: 650px;
+	border: 1px solid black;
 }
 .skillHeader {
 	max-width: 650px;
 }
 .skillScores {
 	max-width: 650px;
+	border: 1px solid black;
 }
 .abilityPointHeader {
 	max-width: 650px;

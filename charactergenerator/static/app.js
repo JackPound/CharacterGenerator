@@ -39,11 +39,24 @@ let abilityRefund = {
 	17:3,
 	18:4,
 }
+let skillSpent = {
+	'athletics':0,
+	'mobility':0,
+	'stealth':0,
+	'trickery':0,
+	'knowledgeArcana':0,
+	'knowledgeWorld':0,
+	'loreNature':0,
+	'loreReligion':0,
+	'perception':0,
+	'persuasion':0,
+	'useMagicDevice':0,
+}
 let attributeSet = ['strength','dexterity','constitution','intelligence','wisdom','charisma']
 // Set bonus to skills based on current attribute score
 function updateSkills(){
 	for (skill in skillSet) {
-		$('#'+skill)[0].textContent = Math.floor((parseInt($('#'+skillSet[skill]+'Total')[0].textContent - 10) / 2))
+		$('#'+skill)[0].textContent = (Math.floor((parseInt($('#'+skillSet[skill]+'Total')[0].textContent - 10) / 2))) + skillSpent[skill]
 	}
 }
 // Check unspent ability points value
@@ -68,6 +81,9 @@ function onLoadAbility(){
 	calculateModifiers()
 	updateSkills()
 	baseSkillPoints = parseInt($('#skillPointsPerLevel')[0].innerHTML)
+	if($('#isSkilled')[0]){
+		baseSkillPoints += 1
+	}
 	availableSkillPoints()
 }
 function calculateModifiers(){
@@ -84,7 +100,6 @@ onLoadAbility()
 
 // On click for all ability modifying buttons + and - ability score
 $('.abilityScores :button').on("click", function(){
-	console.log(String($(this).parent().parent()[0].classList[0]))
 	let attribute = String($(this).parent().parent()[0].classList[0])
 	let currentAV = parseInt($('#'+attribute)[0].textContent)
 	if (this.classList[0] == 'up' && currentAV < 18){
@@ -109,9 +124,13 @@ $('.abilityScores :button').on("click", function(){
 
 $('.skillScores :button').on("click", function(){
 	if (this.className == 'upSkill' && ($('#skillPoints')[0].innerHTML > 0)){
+		let clickedSkill = this.previousElementSibling.id
+		skillSpent[clickedSkill] += 1
 		this.previousElementSibling.innerHTML = parseInt(this.previousElementSibling.innerHTML) + 1
 	}
-	if (this.className == 'downSkill' && parseInt(this.nextElementSibling.innerHTML) > 0){
+	if (this.className == 'downSkill' && skillSpent[this.nextElementSibling.id] > 0){
+		let clickedSkill = this.nextElementSibling.id
+		skillSpent[clickedSkill] -= 1
 		this.nextElementSibling.innerHTML = parseInt(this.nextElementSibling.innerHTML) - 1
 	}
 })

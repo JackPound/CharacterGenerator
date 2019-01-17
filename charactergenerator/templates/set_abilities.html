@@ -2,9 +2,13 @@
 {% block content %}
 <div class='row'>
 	<div class='col-4'>
+		<!-- <p>ID: {{character.id}}</p> -->
 		<p>Build Name: {{character.name}}</p>
-		<p>ID: {{character.id}}</p>
 		<p>Race: {{character.race}}</p>
+		{% if character.skilled %}
+		<span style='display:none;'id='isSkilled'>{{character.skilled}}</span>
+		<p>Skilled: +1 Skill Point Per Level</p>
+		{% endif %}
 		<p>Class: {{character.characterclass}}</p>
 	</div>
 	<div class='abilityScores col-8'>
@@ -112,16 +116,16 @@
 			</div>
 		</div>
 		<div class='row'>
-			<p class='col-4'>Lore Religion:</p>
-			<div class='col-2'>
-				<button class='downSkill'>-</button>
-				<span class='scoreSpacer' id='loreReligion'>{{character.lore_religion}}</span>
-				<button class='upSkill'>+</button>
-			</div>
 			<p class='col-4'>Mobility:</p>
 			<div class='col-2'>
 				<button class='downSkill'>-</button>
 				<span class='scoreSpacer' id='mobility'>{{character.mobility}}</span>
+				<button class='upSkill'>+</button>
+			</div>
+			<p class='col-4'>Lore Religion:</p>
+			<div class='col-2'>
+				<button class='downSkill'>-</button>
+				<span class='scoreSpacer' id='loreReligion'>{{character.lore_religion}}</span>
 				<button class='upSkill'>+</button>
 			</div>
 		</div>

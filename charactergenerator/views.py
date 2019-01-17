@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 # Create your views here.
-from .models import Character
+from .models import Character, Race, Characterclass
 from .forms import NewCharacterForm
+from .characterfun import skilled_check
 
 def index(request):
 	characters = Character.objects.all()
@@ -14,8 +15,9 @@ def newcharacter(request):
 		r = int(request.POST['race'])
 		c = int(request.POST['characterclass'])
 		new_character = Character.objects.create(name= n, race_id = r, characterclass_id = c)
-		# char_id = Character.objects.values('id').get(name=n)
-		# print(new_character.id,'newcharacter.id')
+		if new_character.race.skilled:
+			new_character.skilled = True
+			new_character.save()
 		url = str(new_character.id)
 		return HttpResponseRedirect(url)
 	else:
