@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-# Create your views here.
 from .models import Character, Race, Characterclass
 from .forms import NewCharacterForm
 from .characterfun import skilled_check
 
+# Create your views here.
 def index(request):
 	characters = Character.objects.all()
 	return render(request, 'index.html', {'characters': characters})

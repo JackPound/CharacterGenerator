@@ -10,17 +10,15 @@ class Race(models.Model):
 	charisma_bonus = models.IntegerField(default=0)
 	wisdom_bonus = models.IntegerField(default=0)
 	skilled = models.BooleanField(default=False)
-
 	def __str__(self):
 		return self.name
 
 class Characterclass(models.Model):
 	name = models.CharField(max_length=30, default='')
 	skills_per_level = models.IntegerField(default=0)
-
-
 	def __str__(self):
 		return self.name
+
 class Character(models.Model):
 	name = models.CharField(max_length=30, default='')
 	race = models.ForeignKey(Race, on_delete=models.CASCADE)
@@ -47,5 +45,3 @@ class Character(models.Model):
 	def __str__(self):
 		return self.name
 
-	
-	
